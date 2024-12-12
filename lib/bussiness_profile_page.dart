@@ -168,10 +168,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                           ),
                           const SizedBox(width: 10),
                           ElevatedButton(
-                            onPressed: () {
-                            
-
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -192,41 +189,6 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
           ),
         ),
       );
-
-//       Future<void> postData() async {
-//   // API URL
-//   final url = Uri.parse('https://mrishab.pythonanywhere.com/api/');
-
-//   // Data to be sent in POST request
-//   final Map<String, dynamic> data = {
-//     "business_name": "Sample Business",
-//     "phone": "1234567890",
-//     "address": "Sample Address",
-//     "workspacename": "sampleworkspace.com",
-//     "website": "https://samplewebsite.com",
-//     "email": "sampleemail@gmail.com"
-//   };
-
-//   try {
-//     // Make POST request
-//     final response = await http.post(
-//       url,
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: json.encode(data),
-//     );
-
-//     // Check response status
-//     if (response.statusCode == 200) {
-//       print("Success: ${response.body}");
-//     } else {
-//       print("Failed: ${response.statusCode} - ${response.reasonPhrase}");
-//     }
-//   } catch (e) {
-//     print("Error: $e");
-//   }
-// }
   Widget _buildExpansionTile(BuildContext context, String title,
       String subtitle, GlobalKey<FormState> formKey, List<Widget> formFields) {
     ValueNotifier<bool> isExpandedNotifier = ValueNotifier<bool>(false);
