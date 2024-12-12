@@ -74,22 +74,16 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           actions: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: Colors.white,
-              ),
-              onPressed: () {},
+            InkWell(
+              onTap: () {},
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                width: 135,
+                padding: const EdgeInsets.only(bottom: 2, top: 2),
+                width: 100,
                 decoration: BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Stack(
                       alignment: Alignment.center,
@@ -103,7 +97,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                   ],
                 ),
               ),
-            ),
+            )
           ],
           bottom: const PreferredSize(
             preferredSize: Size.fromHeight(1.0),
