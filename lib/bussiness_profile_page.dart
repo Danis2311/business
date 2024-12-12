@@ -1,4 +1,9 @@
+// ignore_for_file: avoid_print
+
+import 'dart:convert' show json;
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class BusinessProfilePage extends StatefulWidget {
   const BusinessProfilePage({super.key});
@@ -168,7 +173,9 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                           ),
                           const SizedBox(width: 10),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              postData();
+                            },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -189,6 +196,35 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
           ),
         ),
       );
+
+  Future<void> postData() async {
+    final url = Uri.parse('https://mrishab.pythonanywhere.com/api/');
+
+    final Map<String, dynamic> data = {
+      "business_name": _controllers[0].text,
+      "phone": phoneControllers.first.text,
+      "address": addressControllers.first.text,
+      "workspacename": "https://healthcare.io/${_controllers[1].text}",
+      "website": _controllers[3].text,
+      "email": _controllers[4].text
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        print("Success: ${response.body}");
+      } else {
+        print("Failed: ${response.statusCode} - ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
   Widget _buildExpansionTile(BuildContext context, String title,
       String subtitle, GlobalKey<FormState> formKey, List<Widget> formFields) {
     ValueNotifier<bool> isExpandedNotifier = ValueNotifier<bool>(false);
