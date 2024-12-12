@@ -1,7 +1,6 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
-import 'dart:convert' show json;
-
+import 'package:business/result_page.dart' show ResultPage;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -167,8 +166,15 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
                           ),
                           const SizedBox(width: 10),
                           ElevatedButton(
-                            onPressed: () {
-                              postData();
+                            onPressed: () async {
+                              bool succes = await postData();
+                              if (succes) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const ResultPage()),
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -191,7 +197,7 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
         ),
       );
 
-  Future<void> postData() async {
+  Future<bool> postData() async {
     final url = Uri.parse('https://mrishab.pythonanywhere.com/api/');
 
     final Map<String, dynamic> data = {
@@ -199,8 +205,6 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
       "phone": phoneControllers.first.text,
       "address": addressControllers.first.text,
       "workspacename": "https://healthcare.io/${_controllers[1].text}",
-      "website": _controllers[3].text,
-      "email": _controllers[4].text
     };
 
     try {
@@ -209,14 +213,13 @@ class _BusinessProfilePageState extends State<BusinessProfilePage> {
         body: data,
       );
 
-      if (response.statusCode == 200) {
-        print("Success: ${response.body}");
-      } else {
-        print("Failed: ${response.statusCode} - ${response.reasonPhrase}");
-      }
+      if (response.statusCode == 201) {
+        return true;
+      } else {}
     } catch (e) {
-      print("Error: $e");
+      log('e');
     }
+    return false;
   }
 
   Widget _buildExpansionTile(BuildContext context, String title,
